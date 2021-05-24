@@ -31,7 +31,6 @@ async function initLocationSearch() {
   });
 	setTimeout(() => {
 		renderCenterAndMarkers(map, coordinates, locations);
-
 	}, 1500);
 }
 
@@ -57,7 +56,7 @@ function renderNarrativeWithResult(centercoords, location) {
  document.querySelector('#result-distance').textContent = formattedDistanceInMiles(centercoords, location.coords) + ' away';
  document.querySelector('#result-stars').textContent = `${location.number_of_stars} Michelin star${location.number_of_stars > 1 ? 's' : ''}`;
  window.twttr(document, 'script', 'twitter-wjs');
- fb(document, 'script', 'facebook-jssdk');
+ initFacebookButton(document, 'script', 'facebook-jssdk');
 }
 
 function renderTableWithResults(centercoords, locations) {
@@ -2605,8 +2604,7 @@ window.locationData =
 ];
 
 window.onload = () => {
-    // document.querySelector('.search-btn').addEventListener('click', initLocationSearch);
-    initLocationSearch();
+    document.querySelector('.search-btn').addEventListener('click', initLocationSearch);
 }
 
 function formattedDistanceInMiles(coord1, coord2) {
@@ -2644,7 +2642,7 @@ window.twttr = function(d, s, id) {
   return t;
 };
 
-window.fb = function(d, s, id) {
+function initFacebookButton(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
