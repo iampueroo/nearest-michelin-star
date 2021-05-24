@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍱</text></svg>">
+    <title>Nearest Michelin Star</title>
+    <meta name="description" content="Find the closest Michelin starred restaurants near you!">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSMKXWS18D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-LSMKXWS18D');
+    </script>
+    <!-- END - Google Analytics -->
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://nearestmichelinstar.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Nearest Michelin Star">
+    <meta property="og:description"
+          content="Find out what where the nearest Michelin starred restaurants are to you with one click!">
+    <meta property="og:image" content="https://i.imgur.com/MJcSCcX.png">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="nearestmichelinstar.com">
+    <meta property="twitter:url" content="https://nearestmichelinstar.com/">
+    <meta name="twitter:title" content="Nearest Michelin Star">
+    <meta name="twitter:description" content="View the closest Michelin starred restaurants near me.">
+    <meta name="twitter:image" content="https://i.imgur.com/MJcSCcX.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+<section class="hero is-fullheight has-text-centered">
+    <div class="hero-body" style="margin:0 auto">
+        <div>
+            <h1 class="title is-1">
+                Nearest Michelin Star*
+            </h1>
+            <p class="subtitle">
+                Wondering what the closest Michelin starred restaurant is? Find out.
+            </p>
+            <button class="search-btn button is-large is-primary">Find me noms.</button>
+            <a href="#results-narrative" class="results-btn button is-large is-primary is-inverted is-hidden"
+               style="border-color:#00d1b2">View results ↓</a>
+        </div>
+    </div>
+    <div class="hero-foot">
+        <div class="message is-warning">
+            <div class="message-body">
+                <p><span>*</span> Only for locations in the United States. Data last updated May 2021.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="results section container is-hidden">
+    <div class="box has-text-centered is-primary notification" id="results-narrative">
+        <p class="content">
+            <strong id="result-name"></strong> is the nearest Michelin starred restaurant near you. It has <strong
+                id="result-stars"></strong> and is <strong id="result-distance"></strong>.
+        </p>
+    </div>
+    <div class="is-flex is-justify-content-center content buttons mb-5">
+            <a class="twitter-share-button"
+               href="https://twitter.com/intent/tweet?text=Find%20out%20what%20the%20nearest%20Michelin%20starred%20restaurants%20is%20to%20you!"
+               data-size="large">
+                Tweet</a>
+            <div class="fb-share-button ml-1"
+                 data-size="large"
+                 data-href="https://www.your-domain.com/your-page.html"
+                 data-layout="button"></div>
+    </div>
+    <div class="container">
+        <div id="mapid" style="height: 400px; border-radius: 3px" class="block"></div>
+        <div class="table-container">
+            <table class="results table is-fullwidth is-striped">
+                <thead>
+                <tr>
+                    <th>
+                        Distance
+                    </th>
+                    <th>
+                        Stars
+                    </th>
+                    <th>
+                        Restaurant
+                    </th>
+                    <th>
+                        Cuisine
+                    </th>
+                    <th>
+                        City
+                    </th>
+                </tr>
+                </thead>
+                <tbody class="table-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>
+            If you have a feature request, or wish to complain about the US-only data, or just say hello, feel free to
+            <a href="https://twitter.com/intent/tweet?text=%40iampuero%20About%20https%3A%2F%2Fclosestmichelinstar.com%20..."
+               target="_blank" rel="noopener">tweet at me</a>.
+        </p>
+        <p>
+            Built in an afternoon by <strong><a href="https://twitter.com/iampuero">@iampuero</a></strong>. Code
+            available <a href="">on Github.</a>
+        </p>
+    </div>
+</footer>
+<script src="index.js"></script>
+</body>
+</html>
