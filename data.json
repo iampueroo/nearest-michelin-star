@@ -1,4 +1,3 @@
-window.locationData =
 [
     {
         "name": "Bistro Na’s",
@@ -42948,4 +42947,4 @@ window.locationData =
         "city": "Cracow",
         "country": "Poland"
     }
-];
+]
