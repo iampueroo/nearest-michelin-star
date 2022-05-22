@@ -6,19 +6,20 @@ async function getClientGeolocation() {
     if (!navigator.geolocation) {
         return null;
     }
-    return new Promise(success => {
+    return new Promise((success, reject) => {
         navigator.geolocation.getCurrentPosition(
             position => {
-                console.log(position);
                 return success(position.coords);
             },
-            () => success(null)
+            (error) => {
+                return reject(error)
+            }
         );
     });
 };
 
 function updateViewWithLocation(coordinates) {
-	console.log('updating view');
+    console.log('updating view');
     const locations = getSortedAsList(coordinates, window.locationData).slice(0, 10);
     renderNarrativeWithResult(coordinates, locations[0]);
     renderTableWithResults(coordinates, locations);
@@ -34,9 +35,30 @@ function updateViewWithLocation(coordinates) {
 }
 
 async function initLocationSearch() {
+    const errorMsg = document.querySelector('.location-error');
     const button = document.querySelector('.search-btn');
     button.classList.add('is-loading');
-    const coordinates = await getClientGeolocation();
+    let coordinates;
+    try {
+        errorMsg.classList.add('is-hidden');
+        coordinates = await getClientGeolocation();
+    } catch (e) {
+        let msg;
+        switch (e?.code) {
+            case 1:
+                msg = 'Please allow location access to use this app!';
+                break;
+            case 2:
+                msg = 'Something went wrong fetching your position. Please try again later.';
+                break;
+            default:
+                msg = 'Something went wrong fetching your position. Please try again later.';
+                break;
+        }
+        errorMsg.querySelector('.msg').textContent = msg;
+        errorMsg.classList.remove('is-hidden');
+        return
+    }
     if (!coordinates) {
         button.classList.remove('is-loading');
         return;
@@ -63,8 +85,8 @@ function renderMap(coordinates) {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }
         ).addTo(leafletMap);
-		layerGroup = L.layerGroup().addTo(leafletMap);
-		homeMarker = L.marker(homeCoordinates);
+        layerGroup = L.layerGroup().addTo(leafletMap);
+        homeMarker = L.marker(homeCoordinates);
         homeMarker.addTo(layerGroup).bindPopup('Your location').openPopup();
         leafletMap.on('click', function(e) {
             const coords = {
@@ -74,10 +96,10 @@ function renderMap(coordinates) {
             updateViewWithLocation(coords);
         });
     } else {
-		layerGroup.clearLayers();
-		homeMarker = L.marker(homeCoordinates);
+        layerGroup.clearLayers();
+        homeMarker = L.marker(homeCoordinates);
         homeMarker.addTo(layerGroup).bindPopup('Your location').openPopup();
-	}
+    }
     return leafletMap;
 }
 
