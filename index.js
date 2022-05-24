@@ -179,7 +179,12 @@ window.onload = () => {
 }
 
 function formattedDistanceInMiles(coord1, coord2) {
-    return distance(coord1, coord2).toFixed(2) + ' miles';
+    const locale = navigator?.language;
+    const distanceInMiles = distance(coord1, coord2);
+    if (!locale || locale === 'en-US') {
+        return distanceInMiles.toFixed(2) + ' miles';
+    }
+    return (distanceInMiles * 1.609).toFixed(2) + ' km';
 }
 
 function haversineDistanceIn(lat1, lon1, lat2, lon2) {
