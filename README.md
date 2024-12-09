@@ -1,3 +1,8 @@
+# Abandoned
+I had legal action taken against me by Michelin - oops.
+
+-------
+
 # Nearest Michelin Star
 Check out live at https://nearestmichelinstar.com/, a website to find the nearest Michelin starred restaurant to your current location (currently only supports restaurants in the United States).
 
